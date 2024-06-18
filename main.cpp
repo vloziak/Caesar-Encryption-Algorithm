@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string.h>
-#include <cstring>
+#include <string>
+
 using namespace std;
 
 string encrypt(string& rawText, int key) {
@@ -17,12 +17,32 @@ string encrypt(string& rawText, int key) {
     return encryptedText;
 }
 
+string decrypte(string& encryptedText, int key) {
+    string decryptedText = encryptedText;
+    for(int i = 0; i < encryptedText.length(); ++i) {
+        if(encryptedText[i] >= 'a' && encryptedText[i] <= 'z') {
+            decryptedText[i]=((encryptedText[i]- 'a'- key + 26)% 26)+ 'a';
+        }else if (encryptedText[i] >= 'A'&& encryptedText[i]<= 'Z') {
+            decryptedText[i]=((encryptedText[i]- 'A'- key + 26)% 26)+ 'A';
+        }else {
+            decryptedText[i] = encryptedText[i];
+        }
+    }
+    return decryptedText;
+}
+
 int main() {
     string text;
     cout << "Enter text: ";
     getline(cin,text);
-    string encrypt_text = encrypt(text, 2);
-    cout << encrypt_text << endl;
+    string encrypt_text = encrypt(text, 12);
+    cout << "Code: " << encrypt_text << endl;
+
+    string code;
+    cout << "Enter code: ";
+    getline(cin,code);
+    string decrypted_text = decrypte(code, 12);
+    cout << "Decrypted code: " << decrypted_text << endl;
 
     return 0;
 }
