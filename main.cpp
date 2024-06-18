@@ -3,9 +3,9 @@
 #include <cstring>
 using namespace std;
 
-string encrypt(char* rawText, int key) {
-    char* encryptedText = new char[strlen(rawText)+1];
-    for (int i = 0; i < strlen(rawText); ++i) {
+string encrypt(string& rawText, int key) {
+    string encryptedText = rawText;
+    for (int i = 0; i < rawText.length(); ++i) {
         if (rawText[i] >= 'a' && rawText[i] <= 'z') {
             encryptedText[i] = ((rawText[i] - 'a' + key) % 26) + 'a';
         } else if (rawText[i] >= 'A' && rawText[i] <= 'Z') {
@@ -14,15 +14,15 @@ string encrypt(char* rawText, int key) {
             encryptedText[i] = rawText[i];
         }
     }
-    // encryptedText[strlen(rawText)] = '\0';
     return encryptedText;
 }
 
 int main() {
-    char* text;
+    string text;
     cout << "Enter text: ";
-    cin >> text;
+    getline(cin,text);
     string encrypt_text = encrypt(text, 2);
     cout << encrypt_text << endl;
 
+    return 0;
 }
